@@ -10,35 +10,34 @@ import {
 } from 'react-360';
 import house from './data/houseData';
 
-export default class HouseTourVR extends React.Component {
-
+export default class Buttons extends React.Component {
   state = {
     room: house.House.roomName,
     info: house.House.info,
     adjacentRooms: house.House.adjacentRooms
   }
 
-clickHandler(roomSelection) {
-  this.setState({
-    room: house[`${roomSelection}`].roomName,
-    info: house[`${roomSelection}`].info,
-    adjacentRooms: house[`${roomSelection}`].adjacentRooms
-  })
+  clickHandler(roomSelection) {
 
-  Environment.setBackgroundImage(asset(`./360_${house[`${roomSelection}`].img}`));
-}
+    this.setState({
+      room: house[`${roomSelection}`].roomName,
+      info: house[`${roomSelection}`].info,
+      adjacentRooms: house[`${roomSelection}`].adjacentRooms
+    })
 
-createRoomButtons(adjacentRooms) {
+    Environment.setBackgroundImage(asset(`./360_${house[`${roomSelection}`].img}`));
+  }
+
+  createRoomButtons(adjacentRooms) {
     let rooms = adjacentRooms;
     let buttons = [];
 
     rooms.map(room => (
       buttons.push(
         <VrButton key={`${room}` + '-button'} onClick={() => this.clickHandler(room)}>
-          <Text style={{backgroundColor: 'green'}}> { room } </Text>
-        </VrButton>
-      )
-    ))
+          <Text style={{backgroundColor: 'green'}}>{ room }</Text>
+        </VrButton>)
+    ));
 
     return buttons;
   }
@@ -47,19 +46,64 @@ createRoomButtons(adjacentRooms) {
     return (
       <View style={styles.panel}>
         <View style={styles.greetingBox}>
-          <Text style={styles.greeting}> Room Selection </Text>
-          <Text> { this.state.room } </Text>
-          { this.createRoomButtons(this.state.adjacentRooms)}
+          <Text>Room Selection</Text>
+          <Text>{ this.state.room }</Text>
+          { this.createRoomButtons(this.state.adjacentRooms) }
         </View>
-
         <View style={styles.greetingBox}>
-          <Text style={styles.greeting}> Room Info </Text>
-          <Text> { this.state.info } </Text>
+          <Text>Room Info</Text>
+          <Text>{ this.state.info}</Text>
         </View>
-
       </View>
+    );
+  }
+};
 
+export class InfoPanel extends React.Component {
+  state = {
+    room: house.House.roomName,
+    info: house.House.info,
+    adjacentRooms: house.House.adjacentRooms
+  }
 
+  clickHandler(roomSelection) {
+
+    this.setState({
+      room: house[`${roomSelection}`].roomName,
+      info: house[`${roomSelection}`].info,
+      adjacentRooms: house[`${roomSelection}`].adjacentRooms
+    })
+
+    Environment.setBackgroundImage(asset(`./360_${house[`${roomSelection}`].img}`));
+  }
+
+  createRoomButtons(adjacentRooms) {
+    let rooms = adjacentRooms;
+    let buttons = [];
+
+    rooms.map(room => (
+      buttons.push(
+        <VrButton key={`${room}` + '-button'} onClick={() => this.clickHandler(room)}>
+          <Text style={{backgroundColor: 'green'}}>{ room }</Text>
+        </VrButton>)
+    ));
+
+    return buttons;
+  }
+
+  render() {
+    return (
+      <View style={styles.panel}>
+        <View style={styles.greetingBox}>
+          <Text>Room Selection</Text>
+          <Text>{ this.state.room }</Text>
+          { this.createRoomButtons(this.state.adjacentRooms) }
+        </View>
+        <View style={styles.greetingBox}>
+          <Text>Room Info</Text>
+          <Text>{ this.state.info}</Text>
+        </View>
+      </View>
     );
   }
 };
@@ -71,7 +115,7 @@ const styles = StyleSheet.create({
     height: 600,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   greetingBox: {
     padding: 20,
@@ -81,4 +125,5 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('HouseTourVR', () => HouseTourVR);
+AppRegistry.registerComponent('Buttons', () => Buttons);
+AppRegistry.registerComponent('InfoPanel', () => InfoPanel);

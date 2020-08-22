@@ -12,33 +12,33 @@ function init(bundle, parent, options = {}) {
 
   const buttonsPanel = new Surface(
     400,
-    550,
+    400,
     Surface.SurfaceShape.Flat
   );
 
   buttonsPanel.setAngle(
     -0.6,
     0.1
-  )
+  );
+
+  r360.renderToSurface(
+    r360.createRoot('ConnectedButtonInfoPanel'),
+    buttonsPanel
+  );
 
   const infoPanel = new Surface(
     400,
-    550,
+    400,
     Surface.SurfaceShape.Flat
   );
 
   infoPanel.setAngle(
     0.6,
     0.1
-  )
-
-  r360.renderToSurface(
-    r360.createRoot('Buttons', { /* initial props */ }),
-    buttonsPanel
   );
 
   r360.renderToSurface(
-    r360.createRoot('InfoPanel', { /* initial props */ }),
+    r360.createRoot('ConnectedHouseInfoPanel'),
     infoPanel
   );
 
